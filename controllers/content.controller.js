@@ -13,7 +13,7 @@ const ContentController = {
     }
   },
 
-  getAllMovies: (req, res) => {
+  getAllMovies:(req, res) => {
     try{
       Movie.getAllMovies().then(result => {
         utils.successMsg(res, result);
@@ -25,7 +25,7 @@ const ContentController = {
 
   addMovie: (req, res) => {
     try{
-      Movie.createMovie(req).then(result => {
+      Movie.createMovie(req.body.movie).then(result => {
         utils.successMsg(res, result);
       })
     } catch(err) {
@@ -35,7 +35,7 @@ const ContentController = {
 
   updateMovie: (req, res) => {
     try{
-      Movie.updateMovieById(req.body.id, req.body.paramsmovie).then(result => {
+      Movie.updateMovieById(req.body.id, req.body.movie).then(result => {
         utils.successMsg(res, result);
       })
     } catch(err) {

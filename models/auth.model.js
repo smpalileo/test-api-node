@@ -3,45 +3,50 @@ const db = require('../db');
 const User = {
 
   createUser: (user) => {
-    db.query("INSERT INTO users (`username`, `password`) VALUES", user)
-      .then((err, res)  => {
-        return err ? err : res;
-      });
-  },
-
-  getUserById: (id) => {
-    db.query("SELECT username FROM users WHERE id = ?", id)
-      .then((err, res) => {
-        return err ? err : res;
-      });
+    return new Promise((resolve, reject) => {
+      db.query("INSERT INTO users SET username = ?, password = ?", [user.username, user.password])
+        .then(rows => {
+          resolve(rows);
+        }).catch(err => {
+          reject(err);
+        });
+    })
   },
 
   getUserByUsername: (username) => {
-    db.query("SELECT username FROM users WHERE username = ?", username)
-      .then((err, res) => {
-        return err ? err : res;
+    return new Promise((resolve, reject) => {
+      db.query("SELECT * FROM users WHERE username = ?", username)
+      .then(rows => {
+        resolve(rows);
       });
+    })
   },
 
   getAllUsers: () => {
-    db.query("SELECT * FROM users")
-      .then((err, res) => {
-        return err ? err : res;
+    return new Promise((resolve, reject) => {
+      db.query("SELECT * FROM users")
+      .then(rows => {
+        resolve(rows);
       });
+    })
   },
 
   updateUserById: (id, user) => {
-    db.query("UPDATE users (`password`) VALUES = ? WHERE id = ?", [user, id])
-      .then((err, res) => {
-        return err ? err : res;
+    return new Promise((resolve, reject) => {
+      db.query("UPDATE users SET password = ? WHERE id = ?", [user.password, id])
+      .then(rows => {
+        resolve(rows);
       });
+    })
   },
 
   deleteUserById: (id) => {
-    db.query("DELETE FROM users WHERE id = ?", id)
-      .then((err, res) => {
-        return err ? err : res;
+    return new Promise((resolve, reject) => {
+      db.query("DELETE FROM users WHERE id = ?", id)
+      .then(rows => {
+        resolve(rows);
       });
+    })
   }
 }
 

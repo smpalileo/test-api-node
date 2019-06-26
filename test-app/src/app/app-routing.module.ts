@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthComponent } from './auth/auth.component';
+import { ContentComponent } from './content/content.component'
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: '@app/components/auth'
+    path: '',
+    component: AuthComponent
   },
   {
     path: 'content',
-    loadChildren: '@app/components/content'
+    component: ContentComponent
   }
 ];
 
