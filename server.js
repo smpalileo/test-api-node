@@ -25,6 +25,6 @@ app.use(bodyParser.urlencoded({
 app.use('/test-api', TEST_API_ROUTES);
 
 // Serve Web Pages FOR ANGULAR
-// app.get('/*', express.static(__dirname + '/dist/test-app'));
+app.get('/*', express.static(__dirname + 'test-app/dist/test-app'));
 
 app.listen(process.env.PORT || 8080);
