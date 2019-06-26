@@ -3,6 +3,17 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const TEST_API_ROUTES = require('./routes/test-api');
+const db = require('mysql');
+// connection configurations
+const sql = db.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'mydb'
+});
+ 
+// connect to database
+sql.connect();
 
 app.use(cors());
 app.use(bodyParser.json({ limit: 1024 * 1024 * 1024 * 4 }));
