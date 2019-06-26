@@ -1,6 +1,5 @@
 const express = require("express")
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 const AuthController = require('../controllers/auth.controller');
 const ContentController = require('../controllers/content.controller');
 
@@ -11,7 +10,19 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/logout", AuthController.logout)
-      .post("/login", AuthController.login);
+router.route("/auth")
+      .get(AuthController.logout)
+      .post(AuthController.login)
+      .put(AuthController.signUp);
+
+router.route("/movies")
+      .get(ContentController.getAllMovies)
+      .post(ContentController.addMovie)
+      .put(ContentController.updateMovie)
+      .delete(ContentController.deleteAllMovies);
+
+router.route("/movies/:id")
+      .get(ContentController.getOneMovie)
+      .delete(ContentController.deleteMovie);
 
 module.exports = router;
