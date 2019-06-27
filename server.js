@@ -4,18 +4,27 @@ const cors = require("cors");
 const app = express();
 const TEST_API_ROUTES = require('./routes/test-api');
 const db = require('mysql');
+const createDB = require('./db');
 const port = process.env.PORT || 3000
 
 // // connection configurations
+
 const sql = db.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'mydb'
+    password: 'root'
 });
  
-// connect to database
-sql.connect();
+// connect to database CREATE DATABASE  mydb
+
+sql.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    createDB.createDb()
+        .then(createDB.createMoviesTable()
+        .then(createDB.createUsersTable()
+    ))
+  });
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));

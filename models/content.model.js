@@ -39,11 +39,13 @@ const Movie = {
       let update = 'UPDATE movies SET';
       let params = [];
       if(movie.title){
-        update += ' title = ?,'
+        update += !movie.year && !movie.rating ?
+                  ' title = ?' : ' title = ?,'
         params.push(movie.title);
       }
       if(movie.year){
-        update += ' year = ?,'
+        update += !movie.rating ?
+                  ' year = ?' : ' year = ?,'
         params.push(movie.year);
       }
       if(movie.rating){
