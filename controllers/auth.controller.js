@@ -30,7 +30,7 @@ const AuthController = {
   },
 
   logout: (req, res) => {
-    utils.errMsg(res,
+    utils.successMsg(res,
       {
         alert: "Successfully Logged Out!"
       }

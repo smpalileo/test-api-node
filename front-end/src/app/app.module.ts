@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { MaterialModule } from  './material/material.module';
+
+import { FlexLayoutModule } from '@angular/flex-layout'
+
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { ContentComponent } from './content/content.component';
-import { AngularMaterialModule } from './core/angular.material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppStore } from './core/store/app.store';
+import { HttpService } from './service/http.service';
+import { HttpClientModule } from '@angular/common/http'; 
 
 
 @NgModule({
@@ -20,17 +21,18 @@ import { AppStore } from './core/store/app.store';
     ContentComponent
   ],
   imports: [
-    AngularMaterialModule,
-    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    CommonModule,
+    AppRoutingModule,
+    MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [AppStore],
+  providers: [
+    HttpService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
