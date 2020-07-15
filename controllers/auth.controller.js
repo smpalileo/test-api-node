@@ -13,7 +13,6 @@ const AuthController = {
         } else {
           bcrypt.compare(req.body.password, result[0].password)
             .then(same => {
-              console.log(same);
               if (!same) {
                 utils.errMsg(res, 'Password is incorrect!');
               } else {
@@ -27,6 +26,7 @@ const AuthController = {
           });
         }
       })
+      .catch(err => console.error(err));
   },
 
   logout: (req, res) => {

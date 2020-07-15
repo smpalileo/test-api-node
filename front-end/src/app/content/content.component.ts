@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from '../service/http.service';
 
 export interface Movie {
@@ -19,6 +19,7 @@ export class ContentComponent implements OnInit {
   public addForm: FormGroup;
   public updateForm: FormGroup;
   public currentElement;
+  public user;
   public displayedColumns: string[] = ['id', 'title', 'year', 'rating', 'edit', 'delete'];
   public options = [
     {value: 'G', viewValue: 'G'},
@@ -31,11 +32,14 @@ export class ContentComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private httpService: HttpService,
-    private router: Router,
+    private router: Router
   ) {
    }
 
   ngOnInit() {
+    if(!sessionStorage.getItem("userName") && sessionStorage.getItem("userName") !== undefined) 
+      sessionStorage.setItem("userName", window.history.state['user']['username'])
+    this.user = sessionStorage.getItem("userName");
     this.httpService.get('movies').then(res => {
       this.dataSource = res.message;
     })
@@ -52,10 +56,11 @@ export class ContentComponent implements OnInit {
   }
 
   logout(){
+    sessionStorage.removeItem("userName");
     this.httpService.get('auth').then(res => {
       alert(res.message.alert);
       this.router.navigate(['/']);
-    })  
+    })
   }
   
   add(){

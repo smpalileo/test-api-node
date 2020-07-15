@@ -1,6 +1,7 @@
 <div style="text-align: center">
-  <h5> Movie Records </h5>
-  <div>
+  <h5> Movie Records Repository </h5>
+  <button type="button" mat-raised-button (click)="switch()">{{isLogin ? 'Create User' : 'Login'}}</button>
+  <div *ngIf="isLogin">
     <mat-card fxLayout="column">
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
@@ -9,15 +10,44 @@
             <input matInput placeholder="Username" formControlName="username">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Password" [type]="show ? 'text' : 'password'" formControlName="password">
-            <mat-icon matSuffix class="cursor-pointer" (click)="toggleShow()">{{
-              show ? 'visibility' : 'visibility_off'
+            <input matInput placeholder="Password" [type]="show[0] ? 'text' : 'password'" formControlName="password">
+            <mat-icon matSuffix class="cursor-pointer" (click)="toggleShow(0)">{{
+              show[0] ? 'visibility' : 'visibility_off'
             }}</mat-icon>
           </mat-form-field>
         </form>
       </mat-card-content>
       <mat-card-actions style="justify-content: flex-end">
-        <button type="button" mat-raised-button (click)="submit()">Login</button>
+        <button type="button" mat-raised-button [disabled]="!loginForm.valid" (click)="login()">Login</button>
+        <button type="button" mat-raised-button (click)="clearAll('login')">Reset</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div *ngIf="!isLogin">
+    <mat-card fxLayout="column">
+      <mat-card-title>Sign up</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="signUpForm">
+          <mat-form-field>
+            <input matInput placeholder="Username" formControlName="username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Password" [type]="show[1] ? 'text' : 'password'" formControlName="password">
+            <mat-icon matSuffix class="cursor-pointer" (click)="toggleShow(1)">{{
+              show[1] ? 'visibility' : 'visibility_off'
+            }}</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Repeat Password" [type]="show[2] ? 'text' : 'password'" formControlName="repeatPassword">
+            <mat-icon matSuffix class="cursor-pointer" (click)="toggleShow(2)">{{
+              show[2] ? 'visibility' : 'visibility_off'
+            }}</mat-icon>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions style="justify-content: flex-end">
+        <button type="button" mat-raised-button [disabled]="!signUpForm.valid" (click)="signUp()">Submit</button>
+        <button type="button" mat-raised-button (click)="clearAll('signUp')">Reset</button>
       </mat-card-actions>
     </mat-card>
   </div>

@@ -1,7 +1,6 @@
 const db = require('../db');
 
 const User = {
-
   createUser: (user) => {
     return new Promise((resolve, reject) => {
       db.query("INSERT INTO users SET username = ?, password = ?", [user.username, user.password])
